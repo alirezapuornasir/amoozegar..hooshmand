@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101827">
+  <meta name="description" content="آموزگار هوشمند؛ سامانه تمرین آزمون استخدامی آموزگار ابتدایی، تحلیل عملکرد و هوش ریاضی">
+  <title>آموزگار هوشمند | مسیر حرفه‌ای آمادگی آزمون</title>
+  <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark">آ</div>
+        <div><strong>آموزگار هوشمند</strong><small>آمادگی، تمرین، پیشرفت</small></div>
+      </div>
+      <div class="profile-chip"><span class="profile-avatar">✦</span><div><b>مسیر یادگیری من</b><small id="sidebar-streak">شروع یک مسیر تازه</small></div></div>
+      <nav class="nav-list" aria-label="منوی اصلی">
+        <button class="nav-item active" data-view="dashboard"><span>⌂</span> داشبورد</button>
+        <div class="nav-caption">آزمون استخدامی</div>
+        <button class="nav-item" data-view="exam"><span>▤</span> ساخت آزمون</button>
+        <button class="nav-item" data-view="questions"><span>☷</span> بانک سؤالات</button>
+        <button class="nav-item" data-view="wrong"><span>↺</span> اشتباهات و نشان‌شده‌ها</button>
+        <button class="nav-item" data-view="analytics"><span>▥</span> کارنامه و تحلیل</button>
+        <div class="nav-caption">یادگیری هوشمند</div>
+        <button class="nav-item" data-view="tutor"><span>✧</span> معلم هوشمند آفلاین</button>
+        <button class="nav-item" data-view="lessons"><span>▧</span> درس‌نامه‌ها</button>
+        <button class="nav-item" data-view="flashcards"><span>▣</span> فلش‌کارت‌ها</button>
+        <button class="nav-item" data-view="planner"><span>◷</span> برنامه‌ریزی مطالعه</button>
+        <div class="nav-caption">هوش ریاضی</div>
+        <button class="nav-item" data-view="iq"><span>∑</span> ۲۰۰ تست هوش ریاضی</button>
+        <button class="nav-item" data-view="videos"><span>▶</span> ویدیوهای آموزشی</button>
+        <div class="nav-caption">ابزارها</div>
+        <button class="nav-item" data-view="notes"><span>✎</span> دفترچه یادداشت</button>
+        <button class="nav-item" data-view="settings"><span>⚙</span> پشتیبان و تنظیمات</button>
+      </nav>
+      <div class="sidebar-foot"><span class="status-dot"></span> قابل اجرا روی GitHub Pages <small>نسخه استاتیک، بدون نیاز به سرور</small></div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="icon-btn mobile-menu" id="menu-toggle" aria-label="باز کردن منو">☰</button>
+        <div class="breadcrumb"><span>فضای یادگیری</span><b id="page-title">داشبورد</b></div>
+        <div class="top-actions">
+          <button class="icon-btn" id="global-search-btn" title="جست‌وجو">⌕</button>
+          <button class="icon-btn" id="theme-toggle" title="تغییر حالت نمایش">◐</button>
+          <span class="top-date" id="today-label"></span>
+        </div>
+      </header>
+      <section class="view-container" id="view-container" aria-live="polite">
+        <div class="loading-card"><div class="loader"></div><b>در حال آماده‌سازی آموزگار هوشمند…</b><span>بانک سؤال‌ها و درس‌نامه‌ها بارگذاری می‌شوند.</span></div>
+      </section>
+      <footer class="app-footer"><span>آموزگار هوشمند</span><span>محتوای تمرینی تألیفی؛ برای آمادگی و مرور</span><span id="footer-bank-count">در حال شمارش سؤال‌ها…</span></footer>
+    </main>
+  </div>
+  <div class="toast-region" id="toast-region" aria-live="polite"></div>
+  <dialog class="modal" id="search-modal">
+    <form method="dialog" class="modal-head"><div><b>جست‌وجوی سریع</b><small>در سؤال‌ها، درس‌نامه‌ها و موضوع‌ها</small></div><button class="icon-btn">✕</button></form>
+    <input id="global-search-input" class="field" placeholder="مثلاً روایی، دنباله، کسر، مدیریت کلاس…" autocomplete="off">
+    <div id="global-search-results" class="search-results"></div>
+  </dialog>
+  <script type="module" src="assets/js/app.js"></script>
+</body>
+</html>

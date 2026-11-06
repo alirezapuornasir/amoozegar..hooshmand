@@ -1,0 +1,10 @@
+export const $ = (sel, root=document) => root.querySelector(sel);
+export const $$ = (sel, root=document) => [...root.querySelectorAll(sel)];
+export const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+export const shuffle = array => {const a=[...array]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a;};
+export const faNumber = n => new Intl.NumberFormat('fa-IR').format(n);
+export const todayKey = () => new Date().toISOString().slice(0,10);
+export const dateLabel = value => {try{return new Intl.DateTimeFormat('fa-IR',{year:'numeric',month:'short',day:'numeric'}).format(new Date(value));}catch{return '';}};
+export const normalize = text => String(text||'').toLowerCase().replace(/[\u200c\sـ،؛:,.!?؟()\[\]{}]/g,'');
+export const toast = (message, tone='') => {const host=$('#toast-region');if(!host)return;const el=document.createElement('div');el.className='toast '+tone;el.textContent=message;host.append(el);setTimeout(()=>el.remove(),3200);};
+export const shuffleOptions = q => {const correct=q.options[q.answer];const options=shuffle(q.options);return {...q,options,answer:options.indexOf(correct)};};
