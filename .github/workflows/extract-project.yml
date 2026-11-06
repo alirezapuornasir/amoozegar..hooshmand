@@ -5,6 +5,7 @@ on:
 
 permissions:
   contents: write
+  actions: read
 
 jobs:
   extract:
@@ -14,6 +15,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
+          token: ${{ secrets.GH_PAT }}
           persist-credentials: true
 
       - name: Extract ZIP
@@ -22,25 +24,47 @@ jobs:
 
           ZIP_FILE="amoozegar-hooshmand-GitHub.zip"
 
+          echo "Checking ZIP file..."
           ls -lah
 
-          test -f "$ZIP_FILE"
+          if [ ! -f "$ZIP_FILE" ]; then
+            echo "ERROR: ZIP file not found!"
+            exit 1
+          fi
 
-          mkdir -p /tmp/project
+          mkdir -p /tmp/amoozegar-project
 
-          unzip -o "$ZIP_FILE" -d /tmp/project
+          unzip -o "$ZIP_FILE" -d /tmp/amoozegar-project
 
-          SOURCE="/tmp/project"
+          SOURCE="/tmp/amoozegar-project"
 
           if [ -d "$SOURCE/amoozegar-hooshmand" ]; then
             SOURCE="$SOURCE/amoozegar-hooshmand"
           fi
 
-          rsync -av "$SOURCE/" ./
+          echo "Copying project files..."
+
+          rsync -av \
+            --exclude='.git' \
+            "$SOURCE/" ./
+
+          echo "Extraction completed."
+
+      - name: Validate project
+        run: |
+          set -eux
+
+          test -f index.html
+          test -f manifest.webmanifest
+          test -f sw.js
+          test -d assets
+          test -d data
+
+          echo "Project validation successful."
 
       - name: Commit and push
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
           set -eux
 
@@ -49,17 +73,16 @@ jobs:
 
           git add -A
 
-          git status
-
           if git diff --cached --quiet; then
-            echo "No changes detected."
+            echo "No changes to commit."
             exit 0
           fi
 
-          git commit -m "Build AmooZegar project"
+          git commit -m "Install complete AmooZegar project"
 
           git push origin HEAD:${GITHUB_REF_NAME}
 
-      - name: Report result
-        if: always()
-        run: echo "Workflow finished with status ${{ job.status }}"
+      - name: Finish
+        if: success()
+        run: |
+          echo "AmooZegar project installed successfully!"
